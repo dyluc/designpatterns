@@ -1,6 +1,10 @@
 package com.thenullproject.designpatterns;
 
 import com.thenullproject.designpatterns.builder.Account;
+import com.thenullproject.designpatterns.factory.Cryptocurrency;
+import com.thenullproject.designpatterns.factory.CryptocurrencyFactory;
+import com.thenullproject.designpatterns.iterator.Array;
+import com.thenullproject.designpatterns.iterator.Iterator;
 import com.thenullproject.designpatterns.singleton.ThreadSafeSingleton;
 import com.thenullproject.designpatterns.singleton.ThreadUnsafeSingleton;
 
@@ -10,14 +14,54 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Design pattern usages
+        /*
 
+        Usages of various design patterns
+
+         */
+
+        // ==== Creational ====
         // Singleton
-        singleton();
+        //singleton();
 
         // Builder
-        builder();
+        //builder();
 
+        // Factory
+        //factory(args[0]);
+
+        // ==== Behavioural ====
+
+        // Iterator
+        iterator();
+
+
+    }
+
+    private static void iterator() {
+        // create new array with 6 items
+        Array array = new Array();
+
+        for(int i = 1; i <= 6; i++)
+            array.push(String.format("Item %d.", i));
+
+        // create 2 new instances of an ArrayIterator
+        Iterator arrayIterator1 = array.getIterator();
+        Iterator arrayIterator2 = array.getIterator();
+
+        // print items in order
+        while(arrayIterator1.hasNext()) {
+            System.out.println(arrayIterator1.getNext());
+        }
+
+        while(arrayIterator2.hasNext()) {
+            System.out.println(arrayIterator2.getNext());
+        }
+    }
+
+    private static void factory(String type) {
+        Cryptocurrency cryptocurrency = CryptocurrencyFactory.createCurrency(type);
+        System.out.println(cryptocurrency.getTickerSymbol());
     }
 
 
