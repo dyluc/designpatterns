@@ -51,5 +51,16 @@ The representation or structure of a collection is decoupled from the algorithm 
 
 ### Adapter (Structural)
 
+> In this pattern, a wrapper is constructed to facilitate communication between incompatible objects.
+
+Interfaces that are independent of one another can benefit from the adapter pattern to communicate with one another without a need to modify their source code. As such this is a popular pattern for systems that need to make legacy code work with modern classes. 
+
+In the wild, use of an adapter pattern can be recognizable by a class constructor or method which takes an instance of a different abstract/interface type. For example, Java's `java.util.Arrays::asList`.
+
+**Requirements**
+- Create a separate Adapter wrapper class to convert instances of one interface (adaptee) into another interface (target).
+- Work through the Adapter wrapper to interact with the classes that don't have the required interface (the adaptee).
+
+
 ---
 

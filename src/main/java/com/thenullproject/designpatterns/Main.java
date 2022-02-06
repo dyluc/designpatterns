@@ -1,5 +1,8 @@
 package com.thenullproject.designpatterns;
 
+import com.thenullproject.designpatterns.adapter.GitImpl;
+import com.thenullproject.designpatterns.adapter.GitToSvnAdapter;
+import com.thenullproject.designpatterns.adapter.SvnImpl;
 import com.thenullproject.designpatterns.builder.Account;
 import com.thenullproject.designpatterns.factory.Cryptocurrency;
 import com.thenullproject.designpatterns.factory.CryptocurrencyFactory;
@@ -33,9 +36,37 @@ public class Main {
         // ==== Behavioural ====
 
         // Iterator
-        iterator();
+        //iterator();
+
+        // ==== Structural ====
+
+        // Adapter
+        adapter();
 
 
+    }
+
+    private static void adapter() {
+        GitImpl gitImpl = new GitImpl();
+        SvnImpl svnImpl = new SvnImpl();
+
+        // git commands
+        System.out.println("Calling git commands...");
+        gitImpl.commit();
+        gitImpl.branch();
+        gitImpl.reset();
+        System.out.println();
+
+        // svn commands
+        System.out.println("Calling svn commands...");
+        svnImpl.commit();
+        svnImpl.copy();
+        svnImpl.revert();
+        System.out.println();
+
+        // call git branch using svn dialect
+        System.out.println("Calling git commands using svn dialect...");
+        new GitToSvnAdapter(gitImpl).copy();
     }
 
     private static void iterator() {
