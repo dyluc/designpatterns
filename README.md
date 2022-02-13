@@ -49,6 +49,18 @@ The representation or structure of a collection is decoupled from the algorithm 
 - Create an `Iterable` interface, defining one or more methods to retrieve a compatible implementation of the `Iterator` interface.
 - Create concrete implementations of the above interfaces. For example a `MapIterator` to iterate over a `MapCollection`.
 
+
+### Strategy (Behavioural)
+
+> In this pattern, behaviours/algorithms can be extracted into independent objects allowing for interchangeability at runtime.
+
+Using the strategy pattern, you can separate algorithm implementations for one another, and allow selection of which to use at runtime.
+
+**Requirements**
+- Create a `Strategy` interface common to all variations of an algorithm.
+- Create separate classes for each algorithm, which implement the newly created interface.
+- Create a `Context` class which internally references a strategy object. Provide methods for the context class to set and execute the strategy.
+
 ### Adapter (Structural)
 
 > In this pattern, a wrapper is constructed to facilitate communication between incompatible objects.

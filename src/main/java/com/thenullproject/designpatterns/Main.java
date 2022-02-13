@@ -10,6 +10,12 @@ import com.thenullproject.designpatterns.iterator.Array;
 import com.thenullproject.designpatterns.iterator.Iterator;
 import com.thenullproject.designpatterns.singleton.ThreadSafeSingleton;
 import com.thenullproject.designpatterns.singleton.ThreadUnsafeSingleton;
+import com.thenullproject.designpatterns.strategy.ArraySort;
+import com.thenullproject.designpatterns.strategy.ArraySortStrategy;
+import com.thenullproject.designpatterns.strategy.BubbleSort;
+import com.thenullproject.designpatterns.strategy.QuickSort;
+
+import java.util.Arrays;
 
 import static com.thenullproject.designpatterns.builder.Account.AccountType;
 
@@ -38,12 +44,43 @@ public class Main {
         // Iterator
         //iterator();
 
+        // Strategy
+
+        strategy();
+
         // ==== Structural ====
 
         // Adapter
-        adapter();
+        //adapter();
 
 
+    }
+
+    private static void strategy() {
+        // construct new context
+        ArraySort arraySort = new ArraySort();
+
+        // construct new strategy implementation algorithm
+        ArraySortStrategy bubbleSortStrategy = new BubbleSort();
+
+        // pass strategy to context
+        arraySort.setStrategy(bubbleSortStrategy);
+
+        // execute strategy
+        Integer[] pi = new Integer[] {3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 9};
+        Integer[] piClone = pi.clone();
+
+        System.out.printf("Unsorted Array: %s.%n", Arrays.toString(pi));
+        arraySort.sort(pi);
+        System.out.printf("Sorted Array: %s.%n", Arrays.toString(pi));
+
+        // change strategy
+        arraySort.setStrategy(new QuickSort());
+
+        // execute strategy
+        System.out.printf("%nUnsorted Array: %s.%n", Arrays.toString(piClone));
+        arraySort.sort(piClone);
+        System.out.printf("Sorted Array: %s.%n", Arrays.toString(piClone));
     }
 
     private static void adapter() {
