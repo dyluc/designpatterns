@@ -54,12 +54,27 @@ The representation or structure of a collection is decoupled from the algorithm 
 
 > In this pattern, behaviours/algorithms can be extracted into independent objects allowing for interchangeability at runtime.
 
-Using the strategy pattern, you can separate algorithm implementations for one another, and allow selection of which to use at runtime.
+Using the strategy pattern, you can separate algorithm implementations from one another, and allow selection of which to use at runtime.
 
 **Requirements**
 - Create a `Strategy` interface common to all variations of an algorithm.
 - Create separate classes for each algorithm, which implement the newly created interface.
 - Create a `Context` class which internally references a strategy object. Provide methods for the context class to set and execute the strategy.
+
+### Visitor (Behavioural)
+
+> In this pattern, an algorithm is separated from the object that it operates on.
+
+As such, this allows for new functionality to be introduced that operates on existing objects with minimal modification to the original structure (reducing the potential to introduce breaking changes). This new functionality can be created for families of classes, defining individual method specialisations for each separate type.
+
+You can imagine this could result in individual type checking for every single type that the visitor wanted to support. As such, this pattern uses the concept of Double Dispatch to solve this problem.
+Resolving which specialised method to use is delegated to the original object the visitor class intends to operate on. As such the original class will require minimal modification by means of implementing a new `#accept(Visitor visitor)` method.
+
+**Requirements**
+- Create a `Visitor` interface to define operations to be performed on separate types of an object structure (many languages can facilitate this through method overloading).
+- Provide concrete implementations for the `Visitor` interface and each of it's specialised methods.
+- Create a `Visitable` base element interface that defines an `#accept(Visitor visitor)` method to accept a visitor.
+- Concrete implementations of the `Visitable` interface may be existing objects, that should now direct calls to their `accept` method to the visitor's specific specialised method.
 
 ### Adapter (Structural)
 
@@ -75,4 +90,3 @@ In the wild, use of an adapter pattern can be recognizable by a class constructo
 
 
 ---
-

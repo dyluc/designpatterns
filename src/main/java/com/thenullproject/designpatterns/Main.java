@@ -14,6 +14,10 @@ import com.thenullproject.designpatterns.strategy.ArraySort;
 import com.thenullproject.designpatterns.strategy.ArraySortStrategy;
 import com.thenullproject.designpatterns.strategy.BubbleSort;
 import com.thenullproject.designpatterns.strategy.QuickSort;
+import com.thenullproject.designpatterns.visitor.Apartment;
+import com.thenullproject.designpatterns.visitor.Cottage;
+import com.thenullproject.designpatterns.visitor.Mansion;
+import com.thenullproject.designpatterns.visitor.ValuationVisitor;
 
 import java.util.Arrays;
 
@@ -25,7 +29,7 @@ public class Main {
 
         /*
 
-        Usages of various design patterns
+        Client usages of various design patterns
 
          */
 
@@ -46,7 +50,11 @@ public class Main {
 
         // Strategy
 
-        strategy();
+        // strategy();
+
+        // Visitor
+
+        visitor();
 
         // ==== Structural ====
 
@@ -54,6 +62,26 @@ public class Main {
         //adapter();
 
 
+    }
+
+    private static void visitor() {
+        // construct an instance of a visitor
+        ValuationVisitor propertyValuer = new ValuationVisitor();
+
+        // objects now have a common interface
+        Apartment apartment = new Apartment();
+        Cottage cottage = new Cottage();
+        Mansion mansion = new Mansion();
+
+        // delegate calls to visitor by passing it to the accept methods
+        double apartmentValue = apartment.accept(propertyValuer);
+        System.out.println("£" + apartmentValue);
+
+        double cottageValue = cottage.accept(propertyValuer);
+        System.out.println("£" + cottageValue);
+
+        double mansionValue = mansion.accept(propertyValuer);
+        System.out.println("£" + mansionValue);
     }
 
     private static void strategy() {
