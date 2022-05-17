@@ -38,6 +38,15 @@ The factory pattern allows for the flexibility of choosing the created class at 
 
 ### Prototype (Creational)
 
+> In this pattern, object duplication is delegated to the object being cloned. A common interface (often with a single `clone` method) is created to avoid coupling between client code and the class of the object being cloned. 
+
+Implementations of the `clone` method involves creating a object of the same type and copying over all field values. An object that supports cloning is known as a prototype. Often, cloning can serve as an alternative to subclassing for complex objects with many fields and configurations.
+
+The benefit here is that you can create a set of preconfigured objects and clone the object you need when you need it instead of constructing it from scratch.
+
+A prototype registry can be used to store frequently used prototypes, containing pre-built objects.
+A simple implementation could be a hashmap with name -> prototype key value pairs.
+
 ### Iterator (Behavioural)
 
 > In this pattern, elements of a collection can be traversed in sequence without needing to know the underlying implementation.

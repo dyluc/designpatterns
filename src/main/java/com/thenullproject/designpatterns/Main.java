@@ -8,6 +8,10 @@ import com.thenullproject.designpatterns.factory.Cryptocurrency;
 import com.thenullproject.designpatterns.factory.CryptocurrencyFactory;
 import com.thenullproject.designpatterns.iterator.Array;
 import com.thenullproject.designpatterns.iterator.Iterator;
+import com.thenullproject.designpatterns.prototype.Polygon;
+import com.thenullproject.designpatterns.prototype.PolygonRegistry;
+import com.thenullproject.designpatterns.prototype.Square;
+import com.thenullproject.designpatterns.prototype.Triangle;
 import com.thenullproject.designpatterns.singleton.ThreadSafeSingleton;
 import com.thenullproject.designpatterns.singleton.ThreadUnsafeSingleton;
 import com.thenullproject.designpatterns.strategy.ArraySort;
@@ -43,18 +47,19 @@ public class Main {
         // Factory
         //factory(args[0]);
 
+        // Prototype
+        prototype();
+
         // ==== Behavioural ====
 
         // Iterator
         //iterator();
 
         // Strategy
-
         // strategy();
 
         // Visitor
-
-        visitor();
+        // visitor();
 
         // ==== Structural ====
 
@@ -62,6 +67,33 @@ public class Main {
         //adapter();
 
 
+    }
+
+    private static void prototype() {
+        // create Square & Triangle instances using normal constructors
+        Square square = new Square(5.0F);
+        Triangle triangle = new Triangle(Triangle.Type.ISOSCELES);
+
+        // clone it and cast it
+        Square squareClone1 = (Square) square.clone();
+        Triangle triangleClone1 = (Triangle) triangle.clone();
+
+        System.out.println("Squares equal: " + square.equals(squareClone1));
+        System.out.println("Triangles equal: " + triangle.equals(triangleClone1));
+
+        // clone it (don't need to know its type, refer to it by its base class)
+        Polygon squareClone2 = square.clone();
+        Polygon triangleClone2 = triangle.clone();
+
+        // polygon registry is just a wrapper around a hashmap
+        PolygonRegistry polygonRegistry = new PolygonRegistry();
+
+        polygonRegistry.addPolygon("Square", squareClone2);
+        polygonRegistry.addPolygon("Triangle", triangleClone2);
+
+        // get a clone from the registry
+        Polygon squareClone3 = polygonRegistry.getPolygonByName("Square");
+        Polygon triangleClone3 = polygonRegistry.getPolygonByName("Triangle");
     }
 
     private static void visitor() {
